@@ -6,6 +6,22 @@ class User(db.Model):
     email = db.Column(db.String(120), index=True, unique=True)
     lunches = db.relationship('Lunches', backref='author', lazy='dynamic')
     
+    @property
+    def is_authenticated(self):
+        return True
+    
+    @property
+    def is_active(self):
+        return True
+    
+    @property 
+    def is anononymous(self):
+        return False
+
+    def get_if(self):
+        try:
+            return unicode(self.id)
+    
     def __repr__(self):
         return '<User %r>' % (self.nickname)
 
