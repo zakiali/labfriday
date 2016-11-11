@@ -15,12 +15,11 @@ class User(db.Model):
         return True
     
     @property 
-    def is anononymous(self):
+    def is_anononymous(self):
         return False
 
-    def get_if(self):
-        try:
-            return unicode(self.id)
+    def get_id(self):
+        return unicode(self.id)
     
     def __repr__(self):
         return '<User %r>' % (self.nickname)
