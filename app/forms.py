@@ -4,4 +4,5 @@ from wtforms.validators import DataRequired
 
 class LoginForm(Form):
     name = StringField('name', validators=[DataRequired()])
-    date = DateField('date', validators=[DataRequired()]) 
+    email = StringField('email', validators=[DataRequired()])
+    date = DateField('date', format='%m/%d/%Y', validators=[DataRequired()]) 
