@@ -7,11 +7,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="homestyle.css">  
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">  
         <link href="http://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <script src="//code.jquery.com.jquery-1.10.2.js"></script>
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
             </head>
 
-    <body>
+    <body style="padding-top: 100px">
 
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container-fluid">
@@ -22,26 +25,34 @@
                         <span class="icon-bar"></span>
                     </button>
                     <!--a class="navbar-brand" href="index.html"><span class="glyphicon glyphicon-home home"</a-->
-                    <a class="navbar-brand" href="index.html">LAB FRIDAY</a>
+                    <a class="navbar-brand" href="{{ url_for('signup' }}">LAB FRIDAY</a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="suggestions.html">Suggestions</a></li>
+                        <li><a href="suggestions.html">Help, I'm ordering food this week!</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
 
-        <hr>
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <ul>
-                {% for message in messages %}
-                    <li>{{ message }} </li>
-                {% endfor %}
-                </ul>
-            {% endif %}
-            {% endwith %}
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+            {% for message in messages %}
+                <li>{{ message }} </li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+        {% endwith %}
+
+        <div class="sidebar">
+            <ul class="sidebar-list">
+            {% for  name in recents %}
+                <li padding: ><p><b><span style="color:red">{{ name.name }}</span> ordered <span style="color:purple">{{ name.restaurant }}</span> on {{ name.date }}.</b></p></li>
+            {% endfor %}
+            </ul>
+        </div>
 
         {% block content %}{% endblock %}
 
