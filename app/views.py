@@ -12,9 +12,7 @@ def gen_last_n_orders(n=4):
 def get_taken_dates():
     takendates = []
     for lunch in Lunches.query.order_by('datestamp desc').all():
-        print lunch.datestamp
         takendates.append(lunch.datestamp.strftime('%d-%m-%Y'))
-    print takendates
     return takendates
         
 
@@ -48,8 +46,7 @@ def signup():
                             title='Sign Up', 
                             form=form,
                             recents=gen_last_n_orders(),
-                            #takendates=get_taken_dates())
-                            takendates=['02-12-2016', '18-11-2016', '11-11-2016', '04-11-2016', '12-09-2016', '01-01-2016'])
+                            takendates=get_taken_dates())
 
 @app.route('/success', methods=['GET'])
 def success():
