@@ -9,6 +9,15 @@ def gen_last_n_orders(n=4):
         recents.append(dict(zip(('date', 'name', 'restaurant'),(lunch.datestamp, lunch.author.nickname, lunch.restaurant))))
     return recents
 
+def get_taken_dates():
+    takendates = []
+    for lunch in Lunches.query.order_by('datestamp desc').all():
+        print lunch.datestamp
+        takendates.append(lunch.datestamp.strftime('%d-%m-%Y'))
+    print takendates
+    return takendates
+        
+
 def add_user_to_db(name, email, date):
     #check to see if in data base already by using email.
     user = User.query.filter_by(email=email).first()
@@ -38,7 +47,9 @@ def signup():
     return render_template('login.html',
                             title='Sign Up', 
                             form=form,
-                            recents=gen_last_n_orders())
+                            recents=gen_last_n_orders(),
+                            #takendates=get_taken_dates())
+                            takendates=['02-12-2016', '18-11-2016', '11-11-2016', '04-11-2016', '12-09-2016', '01-01-2016'])
 
 @app.route('/success', methods=['GET'])
 def success():
