@@ -1,7 +1,30 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="container">
+        <script>
+            $(function() {
+            $( "#datepicker" ).datepicker({
+            dateFormat: 'dd MM yy',
+            beforeShowDay: unavailable
+            })
+        });
+        </script>
+        <script>
+            var unavailableDates =  {{ takendates|tojson }};
+            window.alert(unavailableDates);
+        </script>
+        <script>
+            function unavailable(date) {
+            var outdate = jQuery.datepicker.formatDate('dd-mm-yy', date)
+            if ($.inArray(outdate, unavailableDates) == -1) {
+            return [true, ""];
+            } else {
+            return [false, "", "Unavailable"];
+            }
+        }
+        </script>
+
+  <div class="container">
   <h1>Sign Up to Order Lab Lunch</h1>
   <form action="" method="POST" name="login">
       {{ form.hidden_tag() }}
@@ -21,11 +44,12 @@
       </p>
       <p>
           Date:<br>
-          {{ form.date }}
+          {{ form.date(id="datepicker") }}
           {% for error in form.date.errors %}
             <span style="color:red"> [{{ error }}] </span>
           {% endfor %}<br>
       </p>
       <p><input type="submit" value="Sign Up"></p>
   </form>
+  </div>
 {% endblock %}
