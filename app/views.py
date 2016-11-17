@@ -39,21 +39,22 @@ def signup():
     form=SignupForm()
     if form.validate_on_submit():
         name, email, date = form.name.data, form.email.data, form.date.data
-        flash('Login requested for name="%s", email=%s, date=%s'%(name, email, date))
+        #flash('Login requested for name="%s", email=%s, date=%s'%(name, email, date))
         add_user_to_db(name, email, date)
-        return redirect('success')
+        return redirect(url_for('success',name=name))
     return render_template('login.html',
                             title='Sign Up', 
                             form=form,
                             recents=gen_last_n_orders(),
                             takendates=get_taken_dates())
 
-@app.route('/success', methods=['GET'])
-def success():
+@app.route('/success/<name>', methods=['GET'])
+def success(name):
     form = LoginForm()
     return render_template('success.html', 
                           title='Thank You',
-                          recents=gen_last_n_orders())
+                          recents=gen_last_n_orders(),
+                          name=name)
 
 
 #@app.route('/user/<nickname>')
