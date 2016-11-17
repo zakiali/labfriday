@@ -4,14 +4,13 @@
         <script>
             $(function() {
             $( "#datepicker" ).datepicker({
-            dateFormat: 'dd MM yy',
+            dateFormat: 'mm/dd/yy',
             beforeShowDay: unavailable
             })
         });
         </script>
         <script>
             var unavailableDates =  {{ takendates|tojson }};
-            window.alert(unavailableDates);
         </script>
         <script>
             function unavailable(date) {

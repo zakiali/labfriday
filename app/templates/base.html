@@ -50,9 +50,10 @@
         {% endwith %}
 
         <div class="sidebar">
+            <p style="text-align:center; font-size: 20px"><b>Recents</b></span>
             <ul class="sidebar-list">
             {% for  name in recents %}
-                <li padding: ><p><b><span style="color:red">{{ name.name }}</span> ordered <span style="color:purple">{{ name.restaurant }}</span> on {{ name.date }}.</b></p></li>
+                <li><p><b><span style="color:red">{{ name.name }}</span> ordered <span style="color:purple">{{ name.restaurant }}</span> on {{ name.date }}.</b></p></li>
             {% endfor %}
             </ul>
         </div>
