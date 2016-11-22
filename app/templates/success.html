@@ -3,6 +3,18 @@
 {% block content %}
     <div class="container" style="padding-top:200px">
     <h1> Thanks for Signing Up {{ name }}!</h1>
-    <h2> Here is a list of previous places we have ordered from.<br> 
-         Feel free to order off this list or any other place you would like.</h2>
+    <p>(You will receive a reminder email the day before.)</p>
+    
+    <p> If you know where you are ordering from please let us know below! </p>
+    <form action="" method="POST" name="restaurant">
+        {{ form.hidden_tag() }}
+        Restaurant: {{ form.restaurant(size=50) }}<input type="submit" value="Submit">
+        {% for error in form.restaurant.errors %}
+            <span style="color:red"> [{{ error }}] </span>
+        {% endfor %}
+        
+    </form>
+
+    <h3> Here is a list of previous places we have ordered from.<br> 
+         Feel free to order off this list or any other place you would like.</h3>
 {% endblock %}
