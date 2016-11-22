@@ -7,5 +7,12 @@ class SignupForm(Form):
     email = StringField('email', validators=[DataRequired()])
     date = DateField('date', format='%m/%d/%Y', validators=[DataRequired()]) 
 
-class LoginForm():
-    name = StringField('name', calidators=[DataRequired()])
+class RestaurantForm(Form):
+    restaurant = StringField('restaurant', validators=[DataRequired()])
+
+class FoodForm(Form):
+    restaurant = StringField('restaurant', validators=[DataRequired()])
+    order = StringField('order', validators=[DataRequired()])
+    price = StringField('price', validators=[DataRequired()])
+    
+    
