@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, request, url_for, g
 from app import app, db
-from .forms import LoginForm, SignupForm
+from .forms import SignupForm, RestaurantForm, FoodForm
 from .models import User, Lunches
 
 def gen_last_n_orders(n=4):
@@ -14,7 +14,17 @@ def get_taken_dates():
     for lunch in Lunches.query.order_by('datestamp desc').all():
         takendates.append(lunch.datestamp.strftime('%d-%m-%Y'))
     return takendates
+
+def get_restaurants():
+    restaurants = []
+    for lunch in Lunches.query.order_by(Lunches.restaurant):
+        restaurants.append(lunch.restaurant)
         
+def add_restaurant(date, restaurant):
+    for r in Lunches.query.order_by(Lunches.datestamp):
+        if date == r.datestamp: r.restaurant == restaurant
+    db.session.commit()
+    return None
 
 def add_user_to_db(name, email, date):
     #check to see if in data base already by using email.
@@ -41,20 +51,24 @@ def signup():
         name, email, date = form.name.data, form.email.data, form.date.data
         #flash('Login requested for name="%s", email=%s, date=%s'%(name, email, date))
         add_user_to_db(name, email, date)
-        return redirect(url_for('success',name=name))
+        
+        return redirect(url_for('success',name=name, date=date))
     return render_template('login.html',
                             title='Sign Up', 
                             form=form,
-                            recents=gen_last_n_orders(),
+                            recents=gen_last_n_orders(n=8),
                             takendates=get_taken_dates())
 
-@app.route('/success/<name>', methods=['GET'])
-def success(name):
-    form = LoginForm()
+@app.route('/success/<name>/<date>', methods=['GET','POST'])
+def success(name,date):
+    form = RestaurantForm()
+    if form.validate_on_submit():
+        restaurant = form.restaurant.data
+        add_restaurant(date, restaurant)
+        flash('restaurant record has been updated with value {0}'.format(restaurant))
     return render_template('success.html', 
                           title='Thank You',
+                          form=form,
                           recents=gen_last_n_orders(),
                           name=name)
 
-
-#@app.route('/user/<nickname>')
