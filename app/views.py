@@ -15,6 +15,30 @@ def get_taken_dates():
         takendates.append(lunch.datestamp.strftime('%d-%m-%Y'))
     return takendates
 
+def get_next_volunteer():
+    '''Get the volunteer for tomorrow'''
+    today = datetime.date.today()# get today's date
+    nextfriday = (today + datetime.timedelta( (4 - today.weekday()) %7 ) ).toordinal()
+    whosdict = {}
+    for lunch in Lunches.query.order_by('datestamp desc').all():    
+        whosdict[nextfriday - lunch.datestamp.toordinal()] = lunch
+    try:
+        return whosdict[1]
+    except KeyError:
+        return None
+
+def get_previous_volunteer():
+    '''Get the volunteer from yesterday'''
+    today = datetime.date.today()# get today's date
+    prevfriday = (today - datetime.timedelta( (today.weekday() - 4) %7 ) ).toordinal()
+    whosdict = {}
+    for lunch in Lunches.query.order_by('datestamp desc').all():    
+        whosdict[nextfriday - lunch.datestamp.toordinal()] = lunch
+    try:
+        return whosdict[-1]
+    except KeyError:
+        return None
+
 def get_restaurants():
     restaurants = []
     for lunch in Lunches.query.order_by(Lunches.restaurant):
