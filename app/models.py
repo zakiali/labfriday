@@ -7,7 +7,7 @@ class User(db.Model):
     lunches = db.relationship('Lunches', backref='author', lazy='dynamic')
     
     def __repr__(self):
-        return '<User %r>' % (self.nickname)
+        return '<Nickname: {0}> <Email: {1}>'.format(self.nickname, self.email)
 
 
 class Lunches(db.Model):
@@ -19,4 +19,4 @@ class Lunches(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     
     def __repr__(self):
-        return '<Restaurant %r>' % (self.restaurant)
+        return '<Author: {0}> <Restaurant: {1}> <Datestamp: {2}> <Order: {3}> <Price: {4}>'.format(self.author, self.restaurant, self.datestamp, self.order, self.price)
