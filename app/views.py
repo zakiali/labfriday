@@ -16,7 +16,7 @@ def get_taken_dates():
     return takendates
 
 def get_next_volunteer():
-    '''Get the volunteer for tomorrow'''
+    '''Get the volunteer for tomorrow.'''
     today = datetime.date.today()# get today's date
     nextfriday = (today + datetime.timedelta( (4 - today.weekday()) %7 ) ).toordinal()
     whosdict = {}
@@ -27,15 +27,14 @@ def get_next_volunteer():
     except KeyError:
         return None
 
-def get_previous_volunteer():
-    '''Get the volunteer from yesterday'''
+def get_todays_volunteer():
+    '''Get todays volunteer.'''
     today = datetime.date.today()# get today's date
-    prevfriday = (today - datetime.timedelta( (today.weekday() - 4) %7 ) ).toordinal()
     whosdict = {}
     for lunch in Lunches.query.order_by('datestamp desc').all():    
-        whosdict[nextfriday - lunch.datestamp.toordinal()] = lunch
+        whosdict[today.toordinal() - lunch.datestamp.toordinal()] = lunch
     try:
-        return whosdict[-1]
+        return whosdict[0]
     except KeyError:
         return None
 
@@ -46,9 +45,13 @@ def get_restaurants():
         
 def add_restaurant(date, restaurant):
     for r in Lunches.query.order_by(Lunches.datestamp):
-        if date == r.datestamp: r.restaurant == restaurant
-    db.session.commit()
-    return None
+        if date == r.datestamp.strftime('%Y-%m-%d'): 
+            print date, r.datestamp
+            print restaurant
+            r.restaurant = restaurant
+            db.session.commit()
+            break
+    return r
 
 def add_user_to_db(name, email, date):
     #check to see if in data base already by using email.
@@ -88,11 +91,11 @@ def success(name,date):
     form = RestaurantForm()
     if form.validate_on_submit():
         restaurant = form.restaurant.data
-        add_restaurant(date, restaurant)
-        flash('restaurant record has been updated with value {0}'.format(restaurant))
+        lunch = add_restaurant(date, restaurant)
+        flash('restaurant record has been updated with value {0}'.format(lunch.restaurant))
     return render_template('success.html', 
                           title='Thank You',
                           form=form,
-                          recents=gen_last_n_orders(),
+                          recents=gen_last_n_orders(n=8),
                           name=name)
 
