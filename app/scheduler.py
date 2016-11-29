@@ -1,4 +1,6 @@
 import schedule
+import threading
+import time
 
 class Scheduler(schedule.Scheduler):
     def __init__(self): schedule.Scheduler.__init__(self)
@@ -6,7 +8,7 @@ class Scheduler(schedule.Scheduler):
     def run_continuously(self, interval=1):
         cease_continuous_run = threading.Event()
         
-        class ScheduleTread(threading.Thread):
+        class ScheduleThread(threading.Thread):
             @classmethod
             def run(cls):
                 while not cease_continuous_run.is_set():
