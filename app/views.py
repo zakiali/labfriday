@@ -2,16 +2,17 @@ from flask import render_template, flash, redirect, request, url_for, g
 from app import app, db
 from .forms import SignupForm, RestaurantForm, FoodForm
 from .models import User, Lunches
+import datetime
 
 def gen_last_n_orders(n=4):
     recents = []
-    for lunch in Lunches.query.order_by('datestamp desc').all()[:n]:
+    for lunch in Lunches.query.order_by(Lunches.datestamp.desc()).all()[:n]:
         recents.append(dict(zip(('date', 'name', 'restaurant'),(lunch.datestamp, lunch.author.nickname, lunch.restaurant))))
     return recents
 
 def get_taken_dates():
     takendates = []
-    for lunch in Lunches.query.order_by('datestamp desc').all():
+    for lunch in Lunches.query.order_by(Lunches.datestamp.desc()).all():
         takendates.append(lunch.datestamp.strftime('%d-%m-%Y'))
     return takendates
 
@@ -20,7 +21,7 @@ def get_next_volunteer():
     today = datetime.date.today()# get today's date
     nextfriday = (today + datetime.timedelta( (4 - today.weekday()) %7 ) ).toordinal()
     whosdict = {}
-    for lunch in Lunches.query.order_by('datestamp desc').all():    
+    for lunch in Lunches.query.order_by(Lunches.datestamp.desc()).all():
         whosdict[nextfriday - lunch.datestamp.toordinal()] = lunch
     try:
         return whosdict[1]
