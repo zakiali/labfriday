@@ -7,7 +7,7 @@ def reminder_email():
     if lunch != None:
         emails.reminder_email(lunch) 
     
-def followup_email()
+def followup_email():
     lunch = get_todays_volunteer()
     if lunch != None:
         emails.followup_email(lunch)
