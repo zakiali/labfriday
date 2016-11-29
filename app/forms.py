@@ -1,16 +1,16 @@
-from flask_wtf import Form
+from flask_wtf import FlaskForm
 from wtforms import StringField, BooleanField, DateField
 from wtforms.validators import DataRequired
 
-class SignupForm(Form):
+class SignupForm(FlaskForm):
     name = StringField('name', validators=[DataRequired()])
     email = StringField('email', validators=[DataRequired()])
     date = DateField('date', format='%m/%d/%Y', validators=[DataRequired()]) 
 
-class RestaurantForm(Form):
+class RestaurantForm(FlaskForm):
     restaurant = StringField('restaurant', validators=[DataRequired()])
 
-class FoodForm(Form):
+class FoodForm(FlaskForm):
     restaurant = StringField('restaurant', validators=[DataRequired()])
     order = StringField('order', validators=[DataRequired()])
     price = StringField('price', validators=[DataRequired()])
