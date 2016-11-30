@@ -1,0 +1,15 @@
+.sidebar {
+/*    width: 25%; */
+    position: fixed;
+    right: 0;
+    height: 500px;
+    float: right;
+    background-color: #ecf2f9;
+    padding: 50px 8px;
+    width: 300px;
+    border-style:solid;
+}
+
+.sidebar-list {
+    list-style-type: none
+}
