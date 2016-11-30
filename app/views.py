@@ -19,12 +19,11 @@ def get_taken_dates():
 def get_next_volunteer():
     '''Get the volunteer for tomorrow.'''
     today = datetime.date.today()# get today's date
-    nextfriday = (today + datetime.timedelta( (4 - today.weekday()) %7 ) ).toordinal()
     whosdict = {}
     for lunch in Lunches.query.order_by(Lunches.datestamp.desc()).all():
-        whosdict[nextfriday - lunch.datestamp.toordinal()] = lunch
+        whosdict[today.toordinal() - lunch.datestamp.toordinal()] = lunch
     try:
-        return whosdict[1]
+        return whosdict[-1]
     except KeyError:
         return None
 
