@@ -12,7 +12,6 @@ class RestaurantForm(FlaskForm):
 
 class FoodForm(FlaskForm):
     restaurant = StringField('restaurant', validators=[DataRequired()])
-    order = StringField('order', validators=[DataRequired()])
-    price = StringField('price', validators=[DataRequired()])
-    
-    
+    order = StringField('order')
+    price = StringField('price')
+
