@@ -46,12 +46,28 @@ def get_restaurants():
 def add_restaurant(date, restaurant):
     for r in Lunches.query.order_by(Lunches.datestamp):
         if date == r.datestamp.strftime('%Y-%m-%d'): 
-            print date, r.datestamp
-            print restaurant
             r.restaurant = restaurant
             db.session.commit()
             break
     return r
+
+def add_order(date, order):
+    for r in Lunches.query.order_by(Lunches.datestamp):
+        if date == r.datestamp.strftime('%Y-%m-%d'): 
+            r.order = order
+            db.session.commit()
+            break
+    return r
+
+def add_price(date, price):
+    for r in Lunches.query.order_by(Lunches.datestamp):
+        if date == r.datestamp.strftime('%Y-%m-%d'): 
+            r.price = price
+            db.session.commit()
+            break
+    return r
+
+
 
 def add_user_to_db(name, email, date):
     #check to see if in data base already by using email.
@@ -94,6 +110,23 @@ def success(name,date):
         lunch = add_restaurant(date, restaurant)
         flash('restaurant record has been updated with value {0}'.format(lunch.restaurant))
     return render_template('success.html', 
+                          title='Thank You',
+                          form=form,
+                          recents=gen_last_n_orders(n=8),
+                          name=name)
+
+@app.route('/ordering/<name>/<date>', methods=['GET','POST'])
+def ordering(name,date):
+    form = FoodForm()
+    if form.validate_on_submit():
+        restaurant = form.restaurant.data
+        order = form.order.data
+        price = form.price.data
+        lunch = add_restaurant(date, restaurant)
+        lunch = add_order(date, order)
+        lunch = add_price(date, price)
+        flash('restaurant record has been updated with value {0} {1} {2}'.format(lunch.restaurant, lunch.order, lunch.price))
+    return render_template('ordering.html', 
                           title='Thank You',
                           form=form,
                           recents=gen_last_n_orders(n=8),
