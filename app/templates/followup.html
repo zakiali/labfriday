@@ -1,0 +1,14 @@
+<p>Hello {{ lunch.author.nickname }},</p>
+
+<p>First of all, thank you for ordering us food today! You are the best!</p>
+
+<p>Now that we've all enjoyed our delicious food and that Aaron is still in the room, it's time to get your reimbursement form filled out and signed! First of all, print out the form <a href="http://sharedservices.berkeley.edu/pdf/Entertainment-Reimbursement-Form.pdf">here</a>. Fill in the relevant fields and have Aaron sign it and submit on bear buy. 
+
+
+<p>Also, to get a record of the places we have ordered from, amongst other things, please fill out this <a href="{{ url_for('ordering', name=lunch.author.nickname, date=lunch.datestamp, _external=True) }}" >form</a></p>.
+<br>
+
+<p>Once again, thank you for volunteering for providine sustenance to our collaboration!<p>
+
+Cheers
+

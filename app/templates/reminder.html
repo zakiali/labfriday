@@ -1,0 +1,10 @@
+<p>Hello {{ lunch.author.nickname }},</p>
+
+<p>This is a reminder that you are ordering some tasty food for lab Friday's tomorrow. If you haven't done so, please arrange for food to be in the lab around 12pm. You may order from anywhere of you wish, but keep the cost to a reasonable amount; around $10/person. If you plan to have people order individually, please send out an email today to labfriday@lists.berkeley.edu so that people have time to get their orders in. Also, order some extra food as well. Once the food arrives, send another email to the labfriday email list (above). </p>
+
+<p>If you know where you are ordering from, please log it in this
+<a href="{{ url_for('success', name=lunch.author.nickname, date=lunch.datestamp, _external=True) }}" >link</a></p><br>
+
+<p>Thank you for volunteering for providing sustenance to our group!<p>
+
+P.S. You will receive a follow up email with instructions on how to get reimbursements. 
