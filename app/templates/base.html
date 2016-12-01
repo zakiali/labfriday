@@ -53,7 +53,11 @@
             <p style="text-align:center; font-size: 20px"><b>Recents</b></span>
             <ul class="sidebar-list">
             {% for  name in recents %}
+                {% if name == recents[0] %}
+                <li><p><b><span style="color:red">{{ name.name }}</span> is ordering <span style="color:purple">{{ name.restaurant }}</span> on {{ name.date }}.</b></p></li>
+                {% else %}
                 <li><p><b><span style="color:red">{{ name.name }}</span> ordered <span style="color:purple">{{ name.restaurant }}</span> on {{ name.date }}.</b></p></li>
+                {% endif %}
             {% endfor %}
             </ul>
         </div>
