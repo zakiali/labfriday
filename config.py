@@ -5,7 +5,7 @@ SECRET_KEY = 'you-will-never-guess'
 import os 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-#SERVER_NAME='127.0.0.1:5000'
+SERVER_NAME='127.0.0.1:5000'
 
 if os.environ.get('DATABASE_URL') is None:
     SQLALCHEMY_DATABASE_URI = 'sqlite:////' + os.path.join(basedir, 'app.db')
