@@ -12,4 +12,10 @@ lm.init_app(app)
 mail = Mail(app)
 
 
-from app import views, models
+from app import views, models, jobs
+from app import scheduler
+
+scheduler = scheduler.Scheduler()
+scheduler.every().day.at("22:18").do(jobs.reminder_email)
+scheduler.every().day.at("22:21").do(jobs.followup_email)
+scheduler.run_continuously()
