@@ -21,27 +21,16 @@ def setup_periodic_tasks(sender, **kwargs):
     sender.add_periodic_task(10.0, tasks.followup_email.s(), name='add every 10')
 
     # Executes every Monday morning at 7:30 a.m.
-    #sender.add_periodic_task(
-    #    crontab(hour=7, minute=30, day_of_week=1),
-    #    test.s('Happy Mondays!'),
-    #)
+    sender.add_periodic_task(
+        crontab(hour=18, minute=00),
+        tasks.followup_email.s(),
+    )
+
+    sender.add_periodic_task(
+        crontab(hour=18, minute=00),
+        tasks.reminder_email.s(),
+    )
 
 @celery.task
 def test():
     print 'Hello'
-
-#@celery.task
-#def reminder_email():
-##    lunch = get_next_volunteer()
-##    if lunch != None:
-##        emails.reminder_email(lunch) 
-#    print 'sending reminder email'
-#
-def followup_email():
-    print 'sending followup email'
-    lunch = views.get_todays_volunteer()
-    if lunch != None:
-        emails.followup_email(lunch)
- 
-
-#setup_periodic_tasks(celery)
