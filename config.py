@@ -5,7 +5,7 @@ SECRET_KEY = 'you-will-never-guess'
 import os 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-#SERVER_NAME='127.0.0.1:5000'
+SERVER_NAME='127.0.0.1:5000'
 
 if os.environ.get('DATABASE_URL') is None:
     SQLALCHEMY_DATABASE_URI = 'sqlite:////' + os.path.join(basedir, 'app.db')
@@ -22,5 +22,5 @@ MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
 MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
 
 #Celery setup
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_BROKER_URL = os.environ.get('REDIS_URL','redis://localhost:6379/0')
+CELERY_RESULT_BACKEND = os.environ.get('REDIS_URL', 'redis://localhost:6379/0')
