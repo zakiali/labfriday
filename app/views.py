@@ -3,6 +3,7 @@ from app import app, db
 from .forms import SignupForm, RestaurantForm, FoodForm
 from .models import User, Lunches
 import datetime
+import tasks
 
 def gen_last_n_orders(n=4):
     recents = []
@@ -31,7 +32,7 @@ def get_todays_volunteer():
     '''Get todays volunteer.'''
     today = datetime.date.today()# get today's date
     whosdict = {}
-    for lunch in Lunches.query.order_by('datestamp desc').all():    
+    for lunch in Lunches.query.order_by(Lunches.datestamp.desc()).all():
         whosdict[today.toordinal() - lunch.datestamp.toordinal()] = lunch
     try:
         return whosdict[0]
