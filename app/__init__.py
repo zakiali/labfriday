@@ -18,18 +18,21 @@ from app import views, models, emails, tasks
 @celery.on_after_configure.connect
 def setup_periodic_tasks(sender, **kwargs):
     # Calls test('hello') every 10 seconds.
-    sender.add_periodic_task(10.0, tasks.followup_email.s(), name='add every 10')
+#    sender.add_periodic_task(10.0, test.s(), name='add every 10')
 
     # Executes every Monday morning at 7:30 a.m.
     sender.add_periodic_task(
-        crontab(hour=18, minute=00),
+        crontab(hour=19, minute=43),
         tasks.followup_email.s(),
     )
 
     sender.add_periodic_task(
-        crontab(hour=18, minute=00),
+        crontab(hour=19, minute=43),
         tasks.reminder_email.s(),
     )
+    sender.add_periodic_task(
+        crontab(hour=19, minute=43),
+        test.s())
 
 @celery.task
 def test():
