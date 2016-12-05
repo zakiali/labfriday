@@ -6,7 +6,7 @@ import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 if os.environ.get('IS_HEROKU'):
-    SERVER_NAME='https://labfriday.herokuapp.com'
+    SERVER_NAME='labfriday.herokuapp.com'
 else:
     SERVER_NAME='127.0.0.1:5000'
 
