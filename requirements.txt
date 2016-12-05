@@ -37,6 +37,7 @@ pyparsing==2.1.4
 python-dateutil==2.5.3
 pytz==2016.7
 redis==2.10.5
+schedule==0.4.0.dev0
 simplegeneric==0.8.1
 six==1.10.0
 SQLAlchemy==1.1.0
