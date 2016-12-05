@@ -34,3 +34,4 @@ def setup_periodic_tasks(sender, **kwargs):
 @celery.task
 def test():
     print 'Hello'
+
