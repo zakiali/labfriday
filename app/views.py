@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, request, url_for, g
 from app import app, db
 from .forms import SignupForm, RestaurantForm, FoodForm
 from .models import User, Lunches
-import datetime
+import datetime, pytz
 import tasks
 
 def gen_last_n_orders(n=4):
@@ -19,7 +19,8 @@ def get_taken_dates():
 
 def get_next_volunteer():
     '''Get the volunteer for tomorrow.'''
-    today = datetime.date.today()# get today's date
+    #today = datetime.date.today()# get today's date
+    today = datetime.datetime.now(pytz.timezone(app.config.get('TIMEZONE','US/Pacific'))).date()
     whosdict = {}
     for lunch in Lunches.query.order_by(Lunches.datestamp.desc()).all():
         whosdict[today.toordinal() - lunch.datestamp.toordinal()] = lunch
@@ -30,7 +31,7 @@ def get_next_volunteer():
 
 def get_todays_volunteer():
     '''Get todays volunteer.'''
-    today = datetime.date.today()# get today's date
+    today = datetime.datetime.now(pytz.timezone(app.config.get('TIMEZONE','US/Pacific'))).date()
     whosdict = {}
     for lunch in Lunches.query.order_by(Lunches.datestamp.desc()).all():
         whosdict[today.toordinal() - lunch.datestamp.toordinal()] = lunch
