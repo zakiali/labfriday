@@ -1,10 +1,10 @@
 <p>Hello {{ lunch.author.nickname }},</p>
 
-<p>This is a reminder that you are ordering some tasty food for lab Friday's tomorrow. If you haven't done so, please arrange for food to be in the lab around 12pm. You may order from anywhere of you wish, but keep the cost to a reasonable amount; around $10/person. If you plan to have people order individually, please send out an email today to labfriday@lists.berkeley.edu so that people have time to get their orders in. Also, order some extra food as well. Once the food arrives, send another email to the labfriday email list (above). </p>
+<p>This is a reminder that you are ordering some tasty food for lab Friday's tomorrow. If you haven't done so, please arrange for food to be in the lab around 12pm. You may order from anywhere of you wish, but keep the cost to a reasonable amount; less than $10/person. If you plan to have people order individually, please send out an email today to labfriday@lists.berkeley.edu so that people have time to get their orders in. In addition, order some extra food (Aaron doesn't always place an order and requires 2 dishes and there are other visitors that may stop by sometimes). Once the food arrives, click <a href="{{ url_for('sendemail', name=lunch.author.nickname, date=lunch.datestamp, _externam=True) }}">here</a></p><br>
 
-<p>If you know where you are ordering from, please log it in this
-<a href="{{ url_for('success', name=lunch.author.nickname, date=lunch.datestamp, _external=True) }}" >link</a></p><br>
+<p>If you know where you will be ordering from, please log it at this
+<a href="{{ url_for('success', name=lunch.author.nickname, date=lunch.datestamp, _external=True) }}" >link</a></p><br>. This is to help us keep track of where we have eaten and who has done the ordering in the recent past.
 
-<p>Thank you for volunteering for providing sustenance to our group!<p>
+<p>Thank you for volunteering and providing sustenance to our group! You're the best!<p>
 
 P.S. You will receive a follow up email with instructions on how to get reimbursements. 
