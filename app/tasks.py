@@ -16,3 +16,9 @@ def followup_email():
     if lunch != None:
         emails.followup_email(lunch)
         print 'sending followup email to {0}'.format(lunch.author.nickname)
+
+@celery.task
+def foodishere_email():
+    lunch = views.get_todays_volunteer()
+    emails.foodishere_email(lunch)
+    print 'sending food is here email to lab friday list'
