@@ -19,16 +19,16 @@ from app import views, models, emails, tasks
 def setup_periodic_tasks(sender, **kwargs):
     # Executes everyday at 6 pm
     sender.add_periodic_task(
-        crontab(hour=12, minute=30),
+        crontab(hour=13, minute=00),
         tasks.followup_email.s(),
     )
 
     sender.add_periodic_task(
-        crontab(hour=12, minute=30),
+        crontab(hour=11, minute=00),
         tasks.reminder_email.s(),
     )
     sender.add_periodic_task(
-        crontab(hour=12, minute=30),
+        crontab(hour=11, minute=00),
         test.s())
 
 @celery.task
