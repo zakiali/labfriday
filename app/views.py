@@ -134,3 +134,12 @@ def ordering(name,date):
                           recents=gen_last_n_orders(n=8),
                           name=name)
 
+@app.route('/sendemail', methods=['GET', 'POST'])
+def sendemail():
+    tasks.foodishere_email()
+    return '<p>Sending email to labfriday that food is here.</p>'
+    
+    
+
+
+
