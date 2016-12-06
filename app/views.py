@@ -42,8 +42,10 @@ def get_todays_volunteer():
 
 def get_restaurants():
     restaurants = []
-    for lunch in Lunches.query.order_by(Lunches.restaurant):
-        restaurants.append(lunch.restaurant)
+    for lunch in Lunches.query.order_by(Lunches.datestamp.desc()).all():
+        if lunch.restaurant in restaurants: continue
+        else: restaurants.append(lunch.restaurant) 
+    return restaurants
         
 def add_restaurant(date, restaurant):
     for r in Lunches.query.order_by(Lunches.datestamp):
@@ -96,7 +98,6 @@ def signup():
         name, email, date = form.name.data, form.email.data, form.date.data
         #flash('Login requested for name="%s", email=%s, date=%s'%(name, email, date))
         add_user_to_db(name, email, date)
-        
         return redirect(url_for('success',name=name, date=date))
     return render_template('login.html',
                             title='Sign Up', 
@@ -111,10 +112,12 @@ def success(name,date):
         restaurant = form.restaurant.data
         lunch = add_restaurant(date, restaurant)
         flash('restaurant record has been updated with value {0}'.format(lunch.restaurant))
+    print get_restaurants()
     return render_template('success.html', 
                           title='Thank You',
                           form=form,
                           recents=gen_last_n_orders(n=8),
+                          restaurants=get_restaurants(),
                           name=name)
 
 @app.route('/ordering/<name>/<date>', methods=['GET','POST'])
