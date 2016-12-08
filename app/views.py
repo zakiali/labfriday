@@ -2,8 +2,8 @@ from flask import render_template, flash, redirect, request, url_for, g
 from app import app, db
 from .forms import SignupForm, RestaurantForm, FoodForm
 from .models import User, Lunches
+from .tasks import foodishere_email
 import datetime, pytz
-import tasks
 
 def gen_last_n_orders(n=4):
     recents = []
@@ -132,17 +132,23 @@ def ordering(name,date):
         lunch = add_price(date, price)
         flash('restaurant record has been updated with value {0} {1} {2}'.format(lunch.restaurant, lunch.order, lunch.price))
     return render_template('ordering.html', 
-                          title='Thank You',
+                          title='Order Form',
                           form=form,
                           recents=gen_last_n_orders(n=8),
                           name=name)
 
 @app.route('/sendemail', methods=['GET', 'POST'])
 def sendemail():
-    tasks.foodishere_email()
+    foodishere_email()
     return '<p>Sending email to labfriday that food is here.</p>'
+
+@app.route('/about', methods=['GET'])
+def about():
+    return render_template('about.html', 
+                           title='About')
+
+@app.route('/help')
+def help():
+    return render_template('help.html',
+                           title='help')
     
-    
-
-
-
