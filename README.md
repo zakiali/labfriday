@@ -15,29 +15,29 @@ A requirements.tex file is included in the installation for a list of packages n
 You will also need sqlite installed on your machine.
 
 ## Installation
-For getting the basics running (without automatic emails) you will first need to create a database and then run the app. 
+For getting the basics running (without automatic emails) you will first need to create a database and then run the app.  
     ``` 
-    > ./create_db.py
-    > ./run.py
+    > ./create_db.py  
+    > ./run.py  
     ```
     
-To get the full functionality (which included automated emails), you will need to start the worker and schedulers. Run the following steps.
+To get the full functionality (which included automated emails), you will need to start the worker and schedulers. Run the following steps.  
 
-Start by running the redis server
-    ```> redis-server # starts the redis database```
+Start by running the redis server  
+    ```> redis-server # starts the redis database```  
 
-In a different terminal start celery and celery-beat scheduler.
-    ```> celery -A app.celery worker -B --loglevel=info```
+In a different terminal start celery and celery-beat scheduler.  
+    ```> celery -A app.celery worker -B --loglevel=info```  
 
-The above command starts the celery worker and the beat scheduler in the same task. This is useful for locally running the web app, but for production applications it is better to run the celery worker and the beat scheduler as separate services. This can be done by first running
-    ```> celery -A app.celery worker --loglevel=info```
+The above command starts the celery worker and the beat scheduler in the same task. This is useful for locally running the web app, but for production applications it is better to run the celery worker and the beat scheduler as separate services. This can be done by first running  
+    ```> celery -A app.celery worker --loglevel=info```  
 
-and then in another terminal, starting the scheduler.
-    ```> celery -A app beat```
+and then in another terminal, starting the scheduler.  
+    ```> celery -A app beat```  
 
 
-Finally, in yet another terminal, run the app.
-    ```> ./run.py```
+Finally, in yet another terminal, run the app.  
+    ```> ./run.py```  
 
 ## Options 
 The app runs as is and you can add users and lunches to the database. However, if you decide that you want to add something else
