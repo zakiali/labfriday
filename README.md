@@ -16,10 +16,8 @@ You will also need sqlite installed on your machine.
 
 ## Installation
 For getting the basics running (without automatic emails) you will first need to create a database and then run the app.  
-    ``` 
-    > ./create_db.py  
-    > ./run.py  
-    ```
+    ```> ./create_db.py```  
+    ```> ./run.py```
     
 To get the full functionality (which included automated emails), you will need to start the worker and schedulers. Run the following steps.  
 
